@@ -1,0 +1,33 @@
+{
+  "name": "truong-pham",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Updated my README for ITDEV161",
+  "homepage": "https://github.com/itdev161-fa2027/Truong-Pham#readme",
+  "bugs": {
+    "url": "https://github.com/itdev161-fa2027/Truong-Pham/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itdev161-fa2027/Truong-Pham.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "config": "^5.0.1",
+    "express": "^5.2.1",
+    "express-validator": "^7.3.2",
+    "mongodb": "^7.6.0",
+    "mongoose": "^9.10.1"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.5",
+    "nodemon": "^3.1.14"
+  }
+}
