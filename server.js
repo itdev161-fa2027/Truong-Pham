@@ -1,3 +1,4 @@
+import cors from 'cors';
 import express from 'express';
 import connectDatabase from './config/db.js';
 import User from './models/User.js';
@@ -13,11 +14,15 @@ dotenv.config();
 
 const app = express();
 
-// Connect Database
+// Connect to database
 connectDatabase();
+
+// Enable CORS
+app.use(cors());
 
 // Configure Middleware
 app.use(express.json());
+
 
 app.get('/', (req, res) => {
     res.send('API Running');
