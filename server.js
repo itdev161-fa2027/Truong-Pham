@@ -68,7 +68,8 @@ try {
     // Create JWT payload
     const payload = {
         user: {
-        id: user.id
+        id: user.id,
+        name: user.name
         }
     };
 
