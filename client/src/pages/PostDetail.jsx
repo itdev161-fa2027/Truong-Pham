@@ -1,8 +1,9 @@
-
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getPostById } from '../services/api';
+import { getPostById, deletePost } from '../services/api';
+import { AuthContext } from '../context/authContext';
 import './PostDetail.css';
+
 
 const PostDetail = () => {
   const { id } = useParams();
@@ -10,6 +11,7 @@ const PostDetail = () => {
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -41,6 +43,33 @@ const PostDetail = () => {
     };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
+
+const handleEdit = () => {
+  navigate(`/posts/${id}/edit`);
+};
+
+const handleDelete = async () => {
+  if (
+    window.confirm(
+      'Are you sure you want to delete this post? This action cannot be undone.'
+    )
+  ) {
+    try {
+      await deletePost(id);
+      navigate('/');
+    } catch (err) {
+      const errorMsg =
+        err.response?.data?.msg ||
+        'Failed to delete post. Please try again.';
+
+      alert(errorMsg);
+    }
+  }
+};
+
+// Check if current user owns the post
+const canModify = user && post && user.id === post.user?._id;
+
 
   if (loading) {
     return <div className="container loading">Loading post...</div>;
@@ -85,7 +114,16 @@ const PostDetail = () => {
           ))}
         </div>
 
-        {/* Edit and Delete buttons will be added in Activity 9 */}
+        {canModify && (
+          <div className="post-actions">
+            <button onClick={handleEdit} className="edit-button">
+              Edit Post
+            </button>
+            <button onClick={handleDelete} className="delete-button">
+              Delete Post
+            </button>
+          </div>
+        )}
       </article>
     </div>
   );
